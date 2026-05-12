@@ -1,0 +1,28 @@
+[
+  {
+    "name": "decode",
+    "description": "Decode an encoded message. Supported encoding types: morse, caesar, custom.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "encoded_message": {"type": "string", "description": "The encoded message to decode."},
+        "encoding_type": {"type": "string", "description": "Encoding type: morse, caesar, custom."},
+        "key": {"type": "string", "description": "Decoding key (required for caesar: shift number; for custom: the mapping name)."}
+      },
+      "required": ["encoded_message", "encoding_type"]
+    }
+  },
+  {
+    "name": "encode",
+    "description": "Encode a message. Supported encoding types: morse, caesar, custom.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message": {"type": "string", "description": "The message to encode."},
+        "encoding_type": {"type": "string", "description": "Encoding type: morse, caesar, custom."},
+        "key": {"type": "string", "description": "Encoding key (required for caesar: shift number; for custom: the mapping name)."}
+      },
+      "required": ["message", "encoding_type"]
+    }
+  }
+]

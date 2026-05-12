@@ -1,0 +1,38 @@
+[
+  {
+    "name": "search_corpus",
+    "description": "Search local corpus and return metadata-only hits (id/title/score). Use read_doc to access full text.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search query text."
+        },
+        "top_k": {
+          "type": "integer",
+          "description": "Maximum number of hits to return."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "read_doc",
+    "description": "Read a full document by id.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "doc_id": {
+          "type": "string",
+          "description": "Document id from search results."
+        }
+      },
+      "required": [
+        "doc_id"
+      ]
+    }
+  }
+]

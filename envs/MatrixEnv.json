@@ -1,0 +1,52 @@
+[
+  {
+    "name": "matrix_determinant",
+    "description": "Compute the determinant of a square matrix.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "description": "A square matrix represented as a list of lists (rows).",
+          "items": {"type": "array", "items": {"type": "number"}}
+        }
+      },
+      "required": ["matrix"]
+    }
+  },
+  {
+    "name": "matrix_multiply",
+    "description": "Multiply two matrices A × B.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "matrix_a": {
+          "type": "array",
+          "description": "First matrix (list of lists).",
+          "items": {"type": "array", "items": {"type": "number"}}
+        },
+        "matrix_b": {
+          "type": "array",
+          "description": "Second matrix (list of lists).",
+          "items": {"type": "array", "items": {"type": "number"}}
+        }
+      },
+      "required": ["matrix_a", "matrix_b"]
+    }
+  },
+  {
+    "name": "matrix_trace",
+    "description": "Compute the trace (sum of diagonal elements) of a square matrix.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "description": "A square matrix represented as a list of lists.",
+          "items": {"type": "array", "items": {"type": "number"}}
+        }
+      },
+      "required": ["matrix"]
+    }
+  }
+]

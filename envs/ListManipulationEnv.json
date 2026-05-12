@@ -1,0 +1,148 @@
+[
+  {
+    "name": "append",
+    "description": "Append one value to a list (1D) or append to each row / append a row in 2D based on axis.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {"type": "number"},
+              {"type": "array", "items": {"type": "number"}}
+            ]
+          },
+          "description": "Current list state. Use [1,2,3] for 1D or [[1,2],[3,4]] for 2D."
+        },
+        "value": {
+          "anyOf": [
+            {"type": "number"},
+            {"type": "array", "items": {"type": "number"}}
+          ],
+          "description": "Value to append (number) or row list for axis=0 in 2D."
+        },
+        "axis": {
+          "type": "integer",
+          "description": "Optional for 2D append: axis=0 append row, axis=1 append value to each row."
+        }
+      },
+      "required": ["values", "value"]
+    }
+  },
+  {
+    "name": "remove",
+    "description": "Remove from list by value (1D) or by index/axis (2D).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {"type": "number"},
+              {"type": "array", "items": {"type": "number"}}
+            ]
+          },
+          "description": "Current list state."
+        },
+        "value": {
+          "type": "number",
+          "description": "For 1D remove, remove first matching value."
+        },
+        "index": {
+          "type": "integer",
+          "description": "For 2D remove, index to remove along axis."
+        },
+        "axis": {
+          "type": "integer",
+          "description": "For 2D remove: axis=0 row, axis=1 column."
+        }
+      },
+      "required": ["values"]
+    }
+  },
+  {
+    "name": "insert",
+    "description": "Insert into list at index (1D) or along axis (2D).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {"type": "number"},
+              {"type": "array", "items": {"type": "number"}}
+            ]
+          },
+          "description": "Current list state."
+        },
+        "index": {
+          "type": "integer",
+          "description": "Insert index."
+        },
+        "value": {
+          "anyOf": [
+            {"type": "number"},
+            {"type": "array", "items": {"type": "number"}}
+          ],
+          "description": "Value or row list to insert."
+        },
+        "axis": {
+          "type": "integer",
+          "description": "Optional for 2D insert: axis=0 row insert, axis=1 column insert."
+        }
+      },
+      "required": ["values", "index", "value"]
+    }
+  },
+  {
+    "name": "sort",
+    "description": "Sort list (1D) or sort rows/elements in 2D based on axis.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {"type": "number"},
+              {"type": "array", "items": {"type": "number"}}
+            ]
+          },
+          "description": "Current list state."
+        },
+        "axis": {
+          "type": "integer",
+          "description": "Optional for 2D sort: axis=0 sort each column independently (NumPy-like), axis=1 sort each row."
+        }
+      },
+      "required": ["values"]
+    }
+  },
+  {
+    "name": "reverse",
+    "description": "Reverse list (1D) or reverse rows/elements in 2D based on axis.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {"type": "number"},
+              {"type": "array", "items": {"type": "number"}}
+            ]
+          },
+          "description": "Current list state."
+        },
+        "axis": {
+          "type": "integer",
+          "description": "Optional for 2D reverse: axis=0 flip along rows (reverse row order), axis=1 flip within each row."
+        }
+      },
+      "required": ["values"]
+    }
+  }
+]

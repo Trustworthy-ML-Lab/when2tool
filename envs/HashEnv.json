@@ -1,0 +1,14 @@
+[
+  {
+    "name": "compute_hash",
+    "description": "Compute a hash of the input string. Supported algorithms: md5, sha256, sha1, fnv1a_custom, djb2_custom, sdbm_custom, murmur_custom, jenkins_custom.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "input_string": {"type": "string", "description": "The string to hash."},
+        "algorithm": {"type": "string", "description": "Hash algorithm: md5, sha256, sha1, fnv1a_custom, djb2_custom, sdbm_custom, murmur_custom, jenkins_custom."}
+      },
+      "required": ["input_string", "algorithm"]
+    }
+  }
+]

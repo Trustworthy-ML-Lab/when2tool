@@ -1,0 +1,37 @@
+[
+  {
+    "name": "date_diff",
+    "description": "Compute the number of days between two dates.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "date1": {"type": "string", "description": "First date in YYYY-MM-DD format."},
+        "date2": {"type": "string", "description": "Second date in YYYY-MM-DD format."}
+      },
+      "required": ["date1", "date2"]
+    }
+  },
+  {
+    "name": "date_add",
+    "description": "Add a number of days to a date. Returns the resulting date in YYYY-MM-DD format.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "date": {"type": "string", "description": "Starting date in YYYY-MM-DD format."},
+        "days": {"type": "integer", "description": "Number of days to add (can be negative)."}
+      },
+      "required": ["date", "days"]
+    }
+  },
+  {
+    "name": "day_of_week",
+    "description": "Get the day of the week for a given date.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "date": {"type": "string", "description": "Date in YYYY-MM-DD format."}
+      },
+      "required": ["date"]
+    }
+  }
+]

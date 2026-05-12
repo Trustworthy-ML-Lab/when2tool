@@ -1,0 +1,13 @@
+[
+  {
+    "name": "lookup_year",
+    "description": "Look up the year a historical event occurred.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "event": {"type": "string", "description": "Description of the historical event."}
+      },
+      "required": ["event"]
+    }
+  }
+]

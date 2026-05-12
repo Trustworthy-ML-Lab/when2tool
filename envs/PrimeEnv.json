@@ -1,0 +1,35 @@
+[
+  {
+    "name": "is_prime",
+    "description": "Check whether a given integer is prime.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "n": {"type": "integer", "description": "The integer to test for primality."}
+      },
+      "required": ["n"]
+    }
+  },
+  {
+    "name": "nth_prime",
+    "description": "Return the n-th prime number (1-indexed: nth_prime(1)=2, nth_prime(2)=3, ...).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "n": {"type": "integer", "description": "Which prime to return (1-indexed)."}
+      },
+      "required": ["n"]
+    }
+  },
+  {
+    "name": "factorize",
+    "description": "Return the prime factorization of a positive integer as a sorted list of (prime, exponent) pairs.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "n": {"type": "integer", "description": "Positive integer to factorize."}
+      },
+      "required": ["n"]
+    }
+  }
+]

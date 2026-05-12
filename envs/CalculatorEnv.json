@@ -1,0 +1,34 @@
+[
+  {
+    "name": "evaluate_expression",
+    "description": "Evaluate an arithmetic expression exactly.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string",
+          "description": "Arithmetic expression only. Does NOT support LAST placeholder."
+        }
+      },
+      "required": ["expression"]
+    }
+  },
+  {
+    "name": "get_last_result",
+    "description": "Get the last computed numeric result.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "clear_last_result",
+    "description": "Clear calculator memory.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  }
+]

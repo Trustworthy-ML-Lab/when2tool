@@ -1,0 +1,7 @@
+torch==2.6.0
+transformers==4.55.2
+vllm==0.8.5
+accelerate==1.13.0
+datasets
+matplotlib
+scikit-learn

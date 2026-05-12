@@ -1,0 +1,27 @@
+[
+  {
+    "name": "find_free_slots",
+    "description": "Find all free time slots of at least the given duration between start and end, given a list of busy intervals. Returns a list of [start, end] pairs in HH:MM format.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "busy": {"type": "array", "description": "List of busy intervals, each [start, end] in HH:MM format.", "items": {"type": "array"}},
+        "day_start": {"type": "string", "description": "Start of the day in HH:MM format."},
+        "day_end": {"type": "string", "description": "End of the day in HH:MM format."},
+        "min_duration": {"type": "integer", "description": "Minimum slot duration in minutes."}
+      },
+      "required": ["busy", "day_start", "day_end", "min_duration"]
+    }
+  },
+  {
+    "name": "check_conflict",
+    "description": "Check if any intervals in the list overlap. Returns true/false and the conflicting pairs if any.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "intervals": {"type": "array", "description": "List of intervals, each [start, end] in HH:MM format.", "items": {"type": "array"}}
+      },
+      "required": ["intervals"]
+    }
+  }
+]

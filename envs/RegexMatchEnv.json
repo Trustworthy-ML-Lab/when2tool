@@ -1,0 +1,15 @@
+[
+  {
+    "name": "regex_match",
+    "description": "Apply a regex pattern to a string and return the match result. Returns the full match and any captured groups.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "pattern": {"type": "string", "description": "The regex pattern."},
+        "text": {"type": "string", "description": "The text to match against."},
+        "operation": {"type": "string", "description": "Operation: 'findall', 'search', 'match', 'sub'. Default: 'findall'."}
+      },
+      "required": ["pattern", "text"]
+    }
+  }
+]

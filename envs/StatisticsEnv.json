@@ -1,0 +1,45 @@
+[
+  {
+    "name": "compute_stat",
+    "description": "Compute a statistic on a list of numbers. Supported stat_type: mean, median, std, variance, min, max, sum, percentile, correlation.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "description": "List of numbers.",
+          "items": {"type": "number"}
+        },
+        "stat_type": {
+          "type": "string",
+          "description": "Statistic to compute: mean, median, std, variance, min, max, sum, percentile, correlation."
+        },
+        "data2": {
+          "type": "array",
+          "description": "Second list of numbers (required for correlation).",
+          "items": {"type": "number"}
+        },
+        "percentile_value": {
+          "type": "number",
+          "description": "Percentile to compute (0-100). Required when stat_type=percentile."
+        }
+      },
+      "required": ["data", "stat_type"]
+    }
+  },
+  {
+    "name": "describe",
+    "description": "Return summary statistics (count, mean, std, min, 25%, 50%, 75%, max) for a list of numbers.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "description": "List of numbers.",
+          "items": {"type": "number"}
+        }
+      },
+      "required": ["data"]
+    }
+  }
+]

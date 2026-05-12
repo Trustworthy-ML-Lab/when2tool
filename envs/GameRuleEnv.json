@@ -1,0 +1,13 @@
+[
+  {
+    "name": "lookup_rule",
+    "description": "Look up a numeric fact about a game's rules (e.g. number of pieces, board size, deck size).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {"type": "string", "description": "Question about a game rule or numeric fact."}
+      },
+      "required": ["query"]
+    }
+  }
+]

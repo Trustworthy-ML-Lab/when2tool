@@ -1,0 +1,37 @@
+[
+  {
+    "name": "combination",
+    "description": "Compute the binomial coefficient C(n, k) = n! / (k! * (n-k)!).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "n": {"type": "integer", "description": "Total items."},
+        "k": {"type": "integer", "description": "Items to choose."}
+      },
+      "required": ["n", "k"]
+    }
+  },
+  {
+    "name": "permutation",
+    "description": "Compute P(n, k) = n! / (n-k)!.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "n": {"type": "integer", "description": "Total items."},
+        "k": {"type": "integer", "description": "Items to arrange."}
+      },
+      "required": ["n", "k"]
+    }
+  },
+  {
+    "name": "factorial",
+    "description": "Compute n!.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "n": {"type": "integer", "description": "Non-negative integer."}
+      },
+      "required": ["n"]
+    }
+  }
+]
