@@ -99,7 +99,7 @@ for MODEL in "${MODELS[@]}"; do
   if should_run 2; then
     echo "[Step 2/5] Extracting features..."
     mkdir -p "$PROBE_DIR"
-    python extract_features.py \
+    python src/extract_features.py \
       --model_path "$MODEL" \
       --output_dir "$PROBE_DIR" \
       --data_path "$DATA_TRAIN" \
@@ -111,7 +111,7 @@ for MODEL in "${MODELS[@]}"; do
   # ------------------------------------------------------------------
   if should_run 3; then
     echo "[Step 3/5] Training probe..."
-    python train_probe.py \
+    python src/train_probe.py \
       --data_dir "$PROBE_DIR" \
       --mode no_reasoning \
       --reg $REG --all_layers
@@ -123,7 +123,7 @@ for MODEL in "${MODELS[@]}"; do
   if should_run 4; then
     echo "[Step 4/5] Running probe-guided evaluation (soft prefill)..."
     for t in $THRESHOLDS; do
-      python run_probe_eval.py \
+      python src/run_probe_eval.py \
         --model_path "$MODEL" \
         --probe_dir "$PROBE_DIR" \
         --data_path "$DATA_TEST" \
@@ -135,7 +135,7 @@ for MODEL in "${MODELS[@]}"; do
     if echo "$MODEL" | grep -qi "llama"; then
       echo "[Step 4/5] Running probe-guided evaluation (hard prefill)..."
       for t in $THRESHOLDS; do
-        python run_probe_eval.py \
+        python src/run_probe_eval.py \
           --model_path "$MODEL" \
           --probe_dir "$PROBE_DIR" \
           --data_path "$DATA_TEST" \
@@ -151,7 +151,7 @@ for MODEL in "${MODELS[@]}"; do
   # ------------------------------------------------------------------
   if should_run 5; then
     echo "[Step 5/5] Plotting tradeoff..."
-    python plot_figures.py \
+    python src/plot_figures.py \
       --models "$MODEL_NAME" \
       --data_path "$DATA_TEST" \
       --output "./figures/${MODEL_NAME}_tradeoff.pdf"

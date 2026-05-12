@@ -80,7 +80,7 @@ for MODEL in "${MODELS[@]}"; do
   if should_run 2; then
     echo "[Step 2/6] Extracting features..."
     mkdir -p "$PROBE_DIR"
-    python extract_features.py \
+    python src/extract_features.py \
       --model_path "$MODEL" \
       --output_dir "$PROBE_DIR" \
       --data_path "$DATA_TRAIN" \
@@ -90,7 +90,7 @@ for MODEL in "${MODELS[@]}"; do
   # Step 3: Train probe
   if should_run 3; then
     echo "[Step 3/6] Training probe..."
-    python train_probe.py \
+    python src/train_probe.py \
       --data_dir "$PROBE_DIR" \
       --mode no_reasoning \
       --reg $REG --all_layers
@@ -104,7 +104,7 @@ for MODEL in "${MODELS[@]}"; do
       echo "  ERROR: Run single-hop pipeline first: $SINGLE_PROBE not found"
       exit 1
     fi
-    python eval_probe_transfer.py \
+    python src/eval_probe_transfer.py \
       --source_probe "$SINGLE_PROBE" \
       --target_hidden_dir "$PROBE_DIR" \
       --mode no_reasoning \
@@ -115,7 +115,7 @@ for MODEL in "${MODELS[@]}"; do
   if should_run 5; then
     echo "[Step 5/6] Probe-guided eval (single-hop probe transfer)..."
     for t in $THRESHOLDS; do
-      python run_probe_eval.py \
+      python src/run_probe_eval.py \
         --model_path "$MODEL" \
         --probe_dir "$SINGLE_PROBE_DIR" \
         --hidden_dir "$PROBE_DIR" \
@@ -129,7 +129,7 @@ for MODEL in "${MODELS[@]}"; do
   # Step 6: Plot
   if should_run 6; then
     echo "[Step 6/6] Plotting..."
-    python plot_figures.py \
+    python src/plot_figures.py \
       --models "${MODEL_NAME}_multihop" \
       --data_path "$DATA_TEST" \
       --output "./figures/${MODEL_NAME}_multihop_tradeoff.pdf"

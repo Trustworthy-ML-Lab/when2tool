@@ -38,7 +38,7 @@ if [[ -n "$ENVS" ]]; then
   ENVS_ARG="--envs $ENVS"
 fi
 
-python run_eval.py \
+python src/run_eval.py \
   --model_path "$MODEL_PATH" \
   --backend vllm \
   --data_path "$DATA_PATH" \
@@ -55,4 +55,4 @@ echo "Output directory: ${OUT_DIR}"
 echo "prompt_mode=${PROMPT_MODE}, reasoning_mode=${REASONING_MODE}"
 echo "Per-setting outputs were written by run_eval."
 echo "To build comparison tables, run:"
-echo "python summarize_settings.py --glob \"${OUT_DIR}/*_settings_table.json\" --output_prefix \"${OUT_DIR}/summary\""
+echo "python src/summarize_settings.py --glob \"${OUT_DIR}/*_settings_table.json\" --output_prefix \"${OUT_DIR}/summary\""

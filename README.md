@@ -97,7 +97,7 @@ The pipeline (`run_pipeline.sh`) executes 5 steps in sequence. You can run speci
 Evaluates all prompt modes (Force, Default, Necessary, Sparse, No Tool) × reasoning modes (with/without reasoning).
 
 ```bash
-python run_eval.py \
+python src/run_eval.py \
   --model_path qwen3-4b-instruct \
   --data_path ./data/tasks_v1_test.json \
   --prompt_mode current \
@@ -122,7 +122,7 @@ python run_eval.py \
 Runs two phases: (1) no-tool evaluation to get ground-truth labels (tool_necessary = 1 if task fails without tools), (2) hidden state extraction from the standard forward pass.
 
 ```bash
-python extract_features.py \
+python src/extract_features.py \
   --model_path qwen3-4b-instruct \
   --output_dir ./probe_data/qwen3-4b-instruct \
   --data_path ./data/tasks_v1_train.json \
@@ -138,7 +138,7 @@ Outputs:
 Trains an L2-regularized logistic regression on all-layer concatenated hidden states.
 
 ```bash
-python train_probe.py \
+python src/train_probe.py \
   --data_dir ./probe_data/qwen3-4b-instruct \
   --mode no_reasoning \
   --reg 10000 \
@@ -153,7 +153,7 @@ Outputs:
 Applies the trained probe at inference time. For each task: predict P(tool_necessary), threshold with τ, and prefill the response with a steering sentence.
 
 ```bash
-python run_probe_eval.py \
+python src/run_probe_eval.py \
   --model_path qwen3-4b-instruct \
   --probe_dir ./probe_data/qwen3-4b-instruct \
   --data_path ./data/tasks_v1_test.json \
@@ -179,7 +179,7 @@ Llama models require `hard` prefill because they partially ignore soft steering.
 Generates a paper-quality accuracy vs. total tool calls figure.
 
 ```bash
-python plot_figures.py \
+python src/plot_figures.py \
   --models qwen3-4b-instruct \
   --data_path ./data/tasks_v1_test.json \
   --output ./figures/qwen3-4b-instruct_tradeoff.pdf
@@ -187,7 +187,7 @@ python plot_figures.py \
 
 Plot multiple models side by side:
 ```bash
-python plot_figures.py \
+python src/plot_figures.py \
   --models qwen3-1.7b qwen3-4b-instruct qwen3-14b qwen3-32b llama3.1-8b llama3.3-70b \
   --output ./figures/all_models.pdf
 ```
@@ -206,21 +206,22 @@ The multi-hop pipeline evaluates 3-step tool-call chains. It reuses the single-h
 .
 ├── run_pipeline.sh          # Full single-hop pipeline (one command)
 ├── run_multihop_pipeline.sh # Full multi-hop pipeline
-├── generate_data.sh         # Data generation script
-├── run_eval.py              # Step 1: Baseline evaluation
-├── extract_features.py      # Step 2: Hidden state extraction + labels
-├── train_probe.py           # Step 3: Linear probe training
-├── run_probe_eval.py        # Step 4: Probe&Prefill inference
-├── plot_figures.py          # Step 5: Tradeoff figures
-├── eval_probe_transfer.py   # Transfer probe to multi-hop (used by multihop pipeline)
-├── model.py                 # AgentModel wrapper (vLLM/HF backends)
-├── utils.py                 # Prompts, evaluation loop, metrics, HF data loading
 ├── run_all_settings.sh      # Grid runner for Step 1 (called by pipeline)
-├── summarize_settings.py    # Optional: generate comparison tables
-├── envs/                    # 15+1 sandboxed tool environments
-├── data/                    # Benchmark task JSONs (generated or auto-downloaded)
-├── data_generators/         # Task generation scripts
-└── huggingface/             # HuggingFace dataset upload (Parquet + README)
+├── generate_data.sh         # Data generation script
+├── requirements.txt
+├── src/
+│   ├── run_eval.py          # Step 1: Baseline evaluation
+│   ├── extract_features.py  # Step 2: Hidden state extraction + labels
+│   ├── train_probe.py       # Step 3: Linear probe training
+│   ├── run_probe_eval.py    # Step 4: Probe&Prefill inference
+│   ├── plot_figures.py      # Step 5: Tradeoff figures
+│   ├── eval_probe_transfer.py  # Transfer probe to multi-hop
+│   ├── model.py             # AgentModel wrapper (vLLM/HF backends)
+│   ├── utils.py             # Prompts, evaluation loop, metrics, HF data loading
+│   └── summarize_settings.py   # Optional: generate comparison tables
+├── envs/                    # 15 sandboxed tool environments
+├── data/                    # Benchmark task JSONs (auto-downloaded from HF)
+└── data_generators/         # Task generation scripts (optional local generation)
 ```
 
 ## Citation

@@ -6,6 +6,14 @@ import sys
 from copy import deepcopy
 from typing import Dict, Tuple
 
+# Ensure both src/ and repo root are on sys.path for imports
+_SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+_REPO_ROOT = os.path.dirname(_SRC_DIR)
+if _SRC_DIR not in sys.path:
+    sys.path.insert(0, _SRC_DIR)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 # Python 3.12+ limits integer-to-string conversion; large combinatorics results need higher limit
 if hasattr(sys, 'set_int_max_str_digits'):
     sys.set_int_max_str_digits(10000)
