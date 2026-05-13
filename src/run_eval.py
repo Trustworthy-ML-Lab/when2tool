@@ -214,6 +214,28 @@ def setting_table_markdown(rows, title):
     return "\n".join(lines) + "\n"
 
 
+def setting_table_markdown_multi_run(all_run_settings, title):
+    """Generate markdown table with mean±std across multiple runs."""
+    import numpy as np
+    n_runs = len(all_run_settings)
+    ref_rows = all_run_settings[0]
+    lines = [
+        f"## {title} ({n_runs} runs, mean±std)",
+        "",
+        "| Env | Setting | N | Accuracy | AvgToolCalls | ToolCallRate |",
+        "|---|---|---:|---:|---:|---:|",
+    ]
+    for i, ref in enumerate(ref_rows):
+        accs = [all_run_settings[r][i]["accuracy"] for r in range(n_runs) if all_run_settings[r][i]["accuracy"] is not None]
+        tcs = [all_run_settings[r][i]["avg_tool_calls"] for r in range(n_runs) if all_run_settings[r][i]["avg_tool_calls"] is not None]
+        tcrs = [all_run_settings[r][i]["tool_call_rate"] for r in range(n_runs) if all_run_settings[r][i]["tool_call_rate"] is not None]
+        acc_str = f"{np.mean(accs):.4f}±{np.std(accs):.4f}" if accs else "NA"
+        tc_str = f"{np.mean(tcs):.4f}±{np.std(tcs):.4f}" if tcs else "NA"
+        tcr_str = f"{np.mean(tcrs):.4f}±{np.std(tcrs):.4f}" if tcrs else "NA"
+        lines.append(f"| {ref['env']} | {ref['setting']} | {ref['n']} | {acc_str} | {tc_str} | {tcr_str} |")
+    return "\n".join(lines) + "\n"
+
+
 def _mode_output_path(base_path, mode, append_suffix):
     # Directory mode: write mode-labeled files directly under the directory.
     # Example: base_path="./outputs/qwen2.5-7b/" -> "./outputs/qwen2.5-7b/current__reasoning.json"
@@ -334,8 +356,10 @@ def _run_one_mode(args, data, model, mode, output_path, require_reasoning=True, 
         json.dump(save_settings, f, ensure_ascii=False, indent=2)
     settings_md_path = os.path.splitext(output_path)[0] + "_settings_table.md"
     with open(settings_md_path, "w", encoding="utf-8") as f:
-        first_settings = all_run_settings[0]
-        f.write(setting_table_markdown(first_settings, f"Settings Accuracy ({label})"))
+        if n_runs > 1:
+            f.write(setting_table_markdown_multi_run(all_run_settings, f"Settings Accuracy ({label})"))
+        else:
+            f.write(setting_table_markdown(all_run_settings[0], f"Settings Accuracy ({label})"))
 
     print(f"[{label}] Saved {len(first_outputs)} episodes x {n_runs} runs to {output_path}")
     print(f"[{label}] Saved metrics: {metrics_path}")
