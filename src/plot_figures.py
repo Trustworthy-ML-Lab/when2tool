@@ -72,8 +72,8 @@ MODEL_DISPLAY["llama3.3-70b"] = "Llama-3.3-70B-Inst"
 
 
 def load_tasks(data_path, env_filter=None):
-    with open(data_path) as f:
-        all_tasks = json.load(f)
+    from utils import load_tasks_from_path
+    all_tasks = load_tasks_from_path(data_path)
     if env_filter:
         all_tasks = [t for t in all_tasks
                      if any(e.get("name") in env_filter for e in t.get("environments", []))]
