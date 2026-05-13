@@ -307,10 +307,14 @@ def plot_one_model(ax, nr_points, r_points, probe_lines, title,
                              COLOR_R, "s", MARKER_SIZE_BASELINE,
                              LINE_WIDTH_BASELINE, "Reason-then-Act", zorder=2)
 
-    # Probe line(s) — plot preferred mode (soft or hard) with the most common temperature
-    for (temp, pmode), points in sorted(probe_lines.items()):
-        if pmode != preferred_pmode:
-            continue
+    # Probe line(s) — plot preferred mode, preferring temp=2.0
+    preferred_temps = sorted(
+        [(t, pm) for (t, pm) in probe_lines if pm == preferred_pmode],
+        key=lambda x: abs(x[0] - 2.0)  # prefer temp closest to 2.0
+    )
+    if preferred_temps:
+        key = preferred_temps[0]
+        points = probe_lines[key]
         tc = [p.get(x_axis, 0) for p in points]
         acc = [p["acc"] for p in points]
         tc_std = [p.get(x_std_key, 0.0) for p in points]
@@ -318,7 +322,6 @@ def plot_one_model(ax, nr_points, r_points, probe_lines, title,
         _plot_line_with_band(ax, tc, acc, tc_std, acc_std,
                              probe_color, "^", MARKER_SIZE_PROBE,
                              LINE_WIDTH_PROBE, probe_label, zorder=4, alpha=0.9)
-        break  # only first soft line
 
     ax.set_title(title, fontsize=FONT_SIZE_TITLE, fontweight="bold")
     ax.grid(True, alpha=0.2, linewidth=0.5)
@@ -389,9 +392,12 @@ def figure_multimodel(models, data_path, output, env_filter=None, ood_dirs=None,
                            annotate_probe=False)
             COLOR_HARD = "#7b3294"
             x_std_key = X_AXIS_STD_KEYS.get(x_axis, "avg_tc_std")
-            for (temp, pmode), points in sorted(probe.items()):
-                if pmode != "hard":
-                    continue
+            hard_temps = sorted(
+                [(t, pm) for (t, pm) in probe.keys() if pm == "hard"],
+                key=lambda x: abs(x[0] - 2.0)
+            )
+            if hard_temps:
+                points = probe[hard_temps[0]]
                 tc = [p.get(x_axis, 0) for p in points]
                 acc = [p["acc"] for p in points]
                 tc_std = [p.get(x_std_key, 0.0) for p in points]
@@ -400,7 +406,6 @@ def figure_multimodel(models, data_path, output, env_filter=None, ood_dirs=None,
                                      COLOR_HARD, "D", MARKER_SIZE_PROBE,
                                      LINE_WIDTH_PROBE, "Probe&Prefill (hard)",
                                      zorder=4, alpha=0.9)
-                break
         else:
             plot_one_model(axes[idx], nr, r, probe, display,
                            probe_color=probe_color, probe_label=probe_label,
