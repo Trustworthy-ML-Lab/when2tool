@@ -111,14 +111,13 @@ for MODEL in "${MODELS[@]}"; do
       --output_dir "$OUT_DIR"
   fi
 
-  # Step 5: Probe-guided eval (transfer single-hop probe to multi-hop)
+  # Step 5: Probe-guided eval (sweep thresholds)
   if should_run 5; then
-    echo "[Step 5/6] Probe-guided eval (single-hop probe transfer)..."
+    echo "[Step 5/6] Probe-guided eval..."
     for t in $THRESHOLDS; do
       python src/run_probe_eval.py \
         --model_path "$MODEL" \
-        --probe_dir "$SINGLE_PROBE_DIR" \
-        --hidden_dir "$PROBE_DIR" \
+        --probe_dir "$PROBE_DIR" \
         --data_path "$DATA_TEST" \
         --threshold "$t" --temperature "$TEMPERATURE" --prefill_mode soft \
         --output_dir "$OUT_DIR" \

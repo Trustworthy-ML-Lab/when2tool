@@ -194,7 +194,7 @@ python src/plot_figures.py \
 
 ## Multi-Hop Evaluation
 
-The multi-hop pipeline evaluates 3-step tool-call chains. It reuses the single-hop probe (transfer without retraining):
+The multi-hop pipeline evaluates 3-step tool-call chains:
 
 ```bash
 ./run_multihop_pipeline.sh qwen3-4b-instruct
