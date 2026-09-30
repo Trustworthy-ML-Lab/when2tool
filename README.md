@@ -1,5 +1,7 @@
 # When2Tool
 
+2026/09/24 Update: Our paper has been accepted to NeurIPS 2026!
+
 Official repository for [**LLM Agents Already Know When to Call Tools — Even Without Reasoning**](https://arxiv.org/abs/2605.09252).
 
 [[Paper]](https://arxiv.org/abs/2605.09252) | [[Project Page]](https://lilywenglab.github.io/when2tool/) | [[Dataset]](https://huggingface.co/datasets/cesun/When2Tool)
