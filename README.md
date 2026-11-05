@@ -16,7 +16,7 @@ Tool-augmented LLM agents tend to call tools indiscriminately, even when the mod
 
 Key results:
 - Linear probes on hidden states achieve AUROC 0.89–0.96 for predicting tool necessity
-- Probe&Prefill reduces tool calls by 48% with only 1.7% accuracy loss
+- Probe&Prefill reduces tool calls by 38% with only 1.7% accuracy loss
 - No fine-tuning, no reasoning tokens, <1ms overhead
 
 ## Quick Start
